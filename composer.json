@@ -1,0 +1,11 @@
+{
+  "name": "smichaelsen/brows",
+  "require": {
+    "app-zap/phpframework": "dev-develop"
+  },
+  "autoload": {
+    "psr-4": {
+      "Smichaelsen\\Brows\\": "app/classes/"
+    }
+  }
+}
