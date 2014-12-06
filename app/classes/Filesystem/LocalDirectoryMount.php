@@ -2,7 +2,6 @@
 namespace Smichaelsen\Brows\Filesystem;
 
 use AppZap\PHPFramework\Configuration\Configuration;
-use AppZap\PHPFramework\Domain\Collection\GenericModelCollection;
 use Smichaelsen\Brows\Domain\Collection\FileCollection;
 use Smichaelsen\Brows\Domain\Model\LocalDirectoryItem;
 
@@ -11,7 +10,50 @@ class LocalDirectoryMount {
 	/**
 	 * @var string
 	 */
+	protected $publicPath;
+
+	/**
+	 * @var string
+	 */
 	protected $rootPath;
+
+	/**
+	 * @return string
+	 */
+	public function getAbsolutePublicPath() {
+		if (isset($this->publicPath)) {
+			return $this->prefixPublicPath($this->publicPath);
+		}
+		return NULL;
+	}
+
+	/**
+	 * @param $path
+	 *
+	 * @return string
+	 */
+	protected function prefixPublicPath($path) {
+		$prefix = Configuration::get('phpframework', 'uri_path_prefix', FALSE);
+		if ($prefix) {
+			return '/' . trim($prefix, '/') . '/' . trim($path, '/') . '/';
+		} else {
+			return '/' . trim($path, '/') . '/';
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPublicPath() {
+		return $this->publicPath;
+	}
+
+	/**
+	 * @param string $publicPath
+	 */
+	public function setPublicPath($publicPath) {
+		$this->publicPath = $publicPath;
+	}
 
 	/**
 	 * @return string
@@ -22,6 +64,7 @@ class LocalDirectoryMount {
 
 	/**
 	 * @param string $rootPath
+	 * @throws \Exception
 	 */
 	public function setRootPath($rootPath) {
 		$rootPath = Configuration::get('phpframework', 'project_root') . $rootPath;

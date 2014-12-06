@@ -1,7 +1,6 @@
 <?php
 namespace Smichaelsen\Brows\Filesystem;
 
-use AppZap\PHPFramework\Configuration\Configuration;
 use Smichaelsen\Brows\Domain\Model\LocalDirectoryItem;
 
 class ImagePublisher {
@@ -11,8 +10,16 @@ class ImagePublisher {
 	 */
 	protected $imageConverter;
 
+	/**
+	 * @var LocalDirectoryMount
+	 */
+	protected $publicDirectoryMount;
+
 	public function __construct() {
 		$this->imageConverter = new \Imagine\Gd\Imagine();
+		$this->publicDirectoryMount = new LocalDirectoryMount();
+		$this->publicDirectoryMount->setRootPath('assets/');
+		$this->publicDirectoryMount->setPublicPath('assets/');
 	}
 
 	/**
@@ -29,9 +36,11 @@ class ImagePublisher {
 		];
 		$hash = $this->hash(serialize($hashIngredients));
 		$targetFilename = $hash . '.' . $item->getFileExtension();
-		$size    = new \Imagine\Image\Box($width, $height);
-		$this->imageConverter->open($item->getAbsolutePath())->thumbnail($size)->save(Configuration::get('phpframework', 'project_root') . 'assets/' . $targetFilename);
-		return 'assets/' . $targetFilename;
+		if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
+			$size    = new \Imagine\Image\Box($width, $height);
+			$this->imageConverter->open($item->getAbsolutePath())->thumbnail($size)->save($this->publicDirectoryMount->getRootPath() . $targetFilename);
+		}
+		return $this->publicDirectoryMount->getAbsolutePublicPath() . $targetFilename;
 	}
 
 	/**

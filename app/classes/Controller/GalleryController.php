@@ -25,8 +25,7 @@ class GalleryController extends AbstractController {
 		$this->mount->setRootPath(Configuration::get('application', 'media_root_folder'));
 		$imagePublisher = new ImagePublisher();
 		$this->response->add_output_function('publicUrl', function($image, $width, $height) use ($imagePublisher){
-			$url = '/' . trim(Configuration::get('phpframework', 'uri_path_prefix'), '/') . '/' . $imagePublisher->publish($image, $width, $height);
-			return $url;
+			return $imagePublisher->publish($image, $width, $height);
 		});
 	}
 
