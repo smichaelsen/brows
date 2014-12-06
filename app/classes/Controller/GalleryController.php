@@ -24,8 +24,17 @@ class GalleryController extends AbstractController {
 		$this->mount = new LocalDirectoryMount();
 		$this->mount->setRootPath(Configuration::get('application', 'media_root_folder'));
 		$imagePublisher = new ImagePublisher();
-		$this->response->add_output_function('publicUrl', function($image, $width, $height) use ($imagePublisher){
+		$this->response->add_output_function('publicUrl', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
 			return $imagePublisher->publish($image, $width, $height);
+		});
+		$this->response->add_output_function('asset', function($path) {
+			$path = 'assets/' . trim($path, '/') . '/';
+			$prefix = Configuration::get('phpframework', 'uri_path_prefix', FALSE);
+			if ($prefix) {
+				return '/' . trim($prefix, '/') . '/' . trim($path, '/');
+			} else {
+				return '/' . trim($path, '/');
+			}
 		});
 	}
 

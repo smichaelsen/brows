@@ -1,3 +1,8 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 {% for item in items %}
-    <a href="{{ publicUrl(item, 800, 600) }}"><img src="{{ publicUrl(item, 300, 300) }}" /></a>
+    <div class="box">
+        <div class="boxInner">
+            <a href="{{ publicUrl(item) }}"><img src="{{ publicUrl(item, 300, 300) }}" /></a>
+        </div>
+    </div>
 {%  endfor %}
