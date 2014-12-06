@@ -1,7 +1,8 @@
 {
   "name": "smichaelsen/brows",
   "require": {
-    "app-zap/phpframework": "dev-develop"
+    "app-zap/phpframework": "dev-develop",
+    "imagine/imagine": "0.6.2"
   },
   "autoload": {
     "psr-4": {

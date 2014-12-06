@@ -1,5 +1,5 @@
 <?php
 
 return [
-	'.' => 'Smichaelsen\\Imagebrowse\\Controller\\GalleryController',
+	'.' => '\Smichaelsen\\Brows\\Controller\\GalleryController',
 ];
