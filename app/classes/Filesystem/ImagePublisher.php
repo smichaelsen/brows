@@ -39,11 +39,11 @@ class ImagePublisher {
 		];
 		$hash = $this->hash(serialize($hashIngredients));
 		$targetFilename = $hash . '.' . $item->getFileExtension();
-		//if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
+		if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
 			$image = $this->imageConverter->open($item->getAbsolutePath());
 			$this->processImage($image, $width, $height);
 			$image->save($this->publicDirectoryMount->getRootPath() . $targetFilename);
-		//}
+		}
 		return $this->publicDirectoryMount->getAbsolutePublicPath() . $targetFilename;
 	}
 

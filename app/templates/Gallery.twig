@@ -1,8 +1,22 @@
-<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('fancybox/jquery.fancybox.css') }}" type="text/css" media="screen" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
+</head>
+<body>
 {% for item in items %}
     <div class="box">
         <div class="boxInner">
-            <a href="{{ publicUrl(item) }}"><img src="{{ publicUrl(item, 300, 300) }}" /></a>
+            <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery"><img src="{{ publicUrl(item, 400, 400) }}" /></a>
         </div>
     </div>
 {%  endfor %}
+<script>
+    $(document).ready(function() {
+        $('a').fancybox();
+    });
+</script>
+</body>
+</html>
