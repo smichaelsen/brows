@@ -2,9 +2,7 @@
 namespace Smichaelsen\Brows\Controller;
 
 use AppZap\PHPFramework\Configuration\Configuration;
-use AppZap\PHPFramework\Domain\Collection\GenericModelCollection;
 use AppZap\PHPFramework\Mvc\AbstractController;
-use Smichaelsen\Brows\Domain\Model\LocalDirectoryItem;
 use Smichaelsen\Brows\Filesystem\ImagePublisher;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 
