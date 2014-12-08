@@ -20,9 +20,28 @@ class GalleryController extends AbstractController {
 	 */
 	protected $mount;
 
+	/**
+	 * @throws \Exception
+	 */
 	public function initialize() {
 		$this->mount = new LocalDirectoryMount();
 		$this->mount->setRootPath(Configuration::get('application', 'media_root_folder'));
+		$this->registerTwigFunctions();
+	}
+
+	/**
+	 * Handle GET requests
+	 */
+	public function get() {
+		$items = $this->mount->getItems('.')->filterForFileExtension($this->allowedFileExtensions);
+		$this->response->set('items', $items);
+	}
+
+
+	/**
+	 *
+	 */
+	protected function registerTwigFunctions() {
 		$imagePublisher = new ImagePublisher();
 		$this->response->add_output_function('publicUrl', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
 			return $imagePublisher->publish($image, $width, $height);
@@ -36,28 +55,6 @@ class GalleryController extends AbstractController {
 				return '/' . trim($path, '/');
 			}
 		});
-	}
-
-	/**
-	 *
-	 */
-	public function get() {
-		$items = $this->mount->getItems('.')->filterForFileExtension($this->allowedFileExtensions);
-		$this->response->set('items', $items);
-	}
-
-	/**
-	 * @param GenericModelCollection $items
-	 */
-	protected function filterForImageFiles(GenericModelCollection $items) {
-		$allowedFileExtensions = array_map('trim', explode(', ', $this->allowedFileExtensions));
-		foreach ($items as $item) {
-			/** @var $item LocalDirectoryItem */
-			if (!in_array($item->getFileExtension(), $allowedFileExtensions)) {
-				$items->remove_item($item);
-			}
-		}
-		return $items;
 	}
 
 }
