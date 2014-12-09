@@ -6,11 +6,29 @@
     <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
 </head>
 <body>
+{% if rootline|length %}
+    rootline:
+    <ul>
+        {% for segment in rootline %}
+            {% if loop.last == false %}
+                <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if directories|length %}
+    Unterordner:
+    <ul>
+        {% for directory in directories %}
+            <li><a href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
 <div class="wrap">
 {% for item in items %}
     <div class="box">
         <div class="boxInner">
-            <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery"><img src="{{ publicUrl(item, 400, 400) }}" /></a>
+            <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery"><img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" /></a>
         </div>
     </div>
 {%  endfor %}

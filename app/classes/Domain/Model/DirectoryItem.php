@@ -4,7 +4,7 @@ namespace Smichaelsen\Brows\Domain\Model;
 use AppZap\PHPFramework\Domain\Model\AbstractModel;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 
-class LocalDirectoryItem extends AbstractModel{
+class DirectoryItem extends AbstractModel{
 
 	/**
 	 * @var string
@@ -15,6 +15,11 @@ class LocalDirectoryItem extends AbstractModel{
 	 * @var LocalDirectoryMount
 	 */
 	protected $mount;
+
+	/**
+	 * @var string
+	 */
+	protected $label;
 
 	/**
 	 * @return string
@@ -47,6 +52,20 @@ class LocalDirectoryItem extends AbstractModel{
 	/**
 	 * @return string
 	 */
+	public function getLabel() {
+		return $this->label ?: array_pop(explode('/', rtrim($this->itemPath, '/')));
+	}
+
+	/**
+	 * @param string $label
+	 */
+	public function setLabel($label) {
+		$this->label = $label;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getFileExtension() {
 		$pathInfo = pathinfo($this->itemPath);
 		return $pathInfo['extension'];
@@ -57,6 +76,13 @@ class LocalDirectoryItem extends AbstractModel{
 	 */
 	public function getAbsolutePath() {
 		return $this->mount->getRootPath() . $this->itemPath;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isDirectory() {
+		return is_dir($this->getAbsolutePath());
 	}
 
 }

@@ -1,5 +1,4 @@
 <?php
-
 return [
-	'.' => '\Smichaelsen\\Brows\\Controller\\GalleryController',
+	'/(.*)/u' => '\Smichaelsen\\Brows\\Controller\\GalleryController',
 ];

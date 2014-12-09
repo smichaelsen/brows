@@ -4,7 +4,7 @@ namespace Smichaelsen\Brows\Filesystem;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
-use Smichaelsen\Brows\Domain\Model\LocalDirectoryItem;
+use Smichaelsen\Brows\Domain\Model\DirectoryItem;
 
 class ImagePublisher {
 
@@ -26,12 +26,13 @@ class ImagePublisher {
 	}
 
 	/**
-	 * @param LocalDirectoryItem $item
+	 * @param DirectoryItem $item
 	 * @param $width
 	 * @param $height
-	 * @return string
+	 *
+*@return string
 	 */
-	public function publish(LocalDirectoryItem $item, $width = NULL, $height = NULL) {
+	public function publish(DirectoryItem $item, $width = NULL, $height = NULL) {
 		$hashIngredients = [
 			$item->getItemPath(),
 			$width,

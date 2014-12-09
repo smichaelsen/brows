@@ -1,8 +1,9 @@
 body {
+    background-color: #333;
+    color: #fff;
+    font: 14px/16px 'Lucida Sans',sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #333;
-    font: 10px/13px 'Lucida Sans',sans-serif;
 }
 .wrap {
     overflow: hidden;

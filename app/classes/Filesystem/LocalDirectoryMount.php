@@ -2,8 +2,8 @@
 namespace Smichaelsen\Brows\Filesystem;
 
 use AppZap\PHPFramework\Configuration\Configuration;
-use Smichaelsen\Brows\Domain\Collection\FileCollection;
-use Smichaelsen\Brows\Domain\Model\LocalDirectoryItem;
+use Smichaelsen\Brows\Domain\Collection\DirectoryItemCollection;
+use Smichaelsen\Brows\Domain\Model\DirectoryItem;
 
 class LocalDirectoryMount {
 
@@ -78,7 +78,7 @@ class LocalDirectoryMount {
 	/**
 	 * @param string $path
 	 *
-	 * @return FileCollection
+	 * @return DirectoryItemCollection
 	 * @throws \Exception
 	 */
 	public function getItems($path) {
@@ -86,23 +86,20 @@ class LocalDirectoryMount {
 		$this->validatePath($path);
 		$absolutePath = $this->getAbsolutePath($path);
 		$filenames = scandir($absolutePath);
-		$collection = new FileCollection();
+		$collection = new DirectoryItemCollection();
 		foreach ($filenames as $key => $filename) {
-			if ($filename === '.' || $filename === '..') {
-				unset($filenames[$key]);
-			} else {
-				$item = new LocalDirectoryItem();
+			if ($filename !== '.' && $filename !== '..') {
+				$item = new DirectoryItem();
 				$item->setMount($this);
 				$item->setItemPath($path . $filename);
-				$collection->set_item($item);
+				$collection->add($item);
 			}
 		}
 		return $collection;
 	}
 
 	/**
-	 * @param $path
-	 *
+	 * @param string $path
 	 * @throws \Exception
 	 */
 	protected function validatePath($path) {
@@ -114,12 +111,16 @@ class LocalDirectoryMount {
 
 	/**
 	 * @param string $path
-	 *
 	 * @return string
 	 */
 	protected function getAbsolutePath($path) {
 		$absolutePath = $this->rootPath . $path;
-		return rtrim(realpath($absolutePath), '/') . '/';
+		$absolutePath = realpath($absolutePath);
+		if ($absolutePath) {
+			return rtrim($absolutePath, '/') . '/';
+		} else {
+			return FALSE;
+		}
 	}
 
 }
