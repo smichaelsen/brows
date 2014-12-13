@@ -103,7 +103,9 @@ class ImagePublisher {
 		$pathParts = explode('/', $targetFilepath);
 		array_pop($pathParts);
 		$targetDirectory = join('/', $pathParts);
-		mkdir($targetDirectory, 0777, TRUE);
+		if (!is_dir($targetDirectory)) {
+			@mkdir($targetDirectory, 0777, TRUE);
+		}
 	}
 
 }
