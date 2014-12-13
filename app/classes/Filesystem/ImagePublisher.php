@@ -30,7 +30,7 @@ class ImagePublisher {
 	 * @param $width
 	 * @param $height
 	 *
-*@return string
+	 * @return string
 	 */
 	public function publish(DirectoryItem $item, $width = NULL, $height = NULL) {
 		$hashIngredients = [

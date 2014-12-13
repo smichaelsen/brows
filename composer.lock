@@ -12,16 +12,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/app-zap/PHPFramework.git",
-                "reference": "f891969ec4fa7a9e6d42950611640278e5d2ad15"
+                "reference": "d1a44e1071ad07eccf66f042b9aa498af3859794"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/app-zap/PHPFramework/zipball/f891969ec4fa7a9e6d42950611640278e5d2ad15",
-                "reference": "f891969ec4fa7a9e6d42950611640278e5d2ad15",
+                "url": "https://api.github.com/repos/app-zap/PHPFramework/zipball/d1a44e1071ad07eccf66f042b9aa498af3859794",
+                "reference": "d1a44e1071ad07eccf66f042b9aa498af3859794",
                 "shasum": ""
             },
             "require": {
                 "nette/caching": "2.2.*",
+                "php": ">=5.4.0",
                 "twig/twig": "1.16.*"
             },
             "require-dev": {
@@ -40,7 +41,7 @@
                 "BSD-2-Clause"
             ],
             "description": "A lightweight but powerful PHP framework",
-            "time": "2014-12-05 10:32:45"
+            "time": "2014-12-12 14:11:27"
         },
         {
             "name": "imagine/imagine",

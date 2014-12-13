@@ -12,11 +12,13 @@ class DirectoryItemCollection extends AbstractModelCollection {
 	 * @return DirectoryItemCollection
 	 */
 	public function getFilesByExtensions($allowedFileExtensions) {
-		$allowedFileExtensions = array_map('trim', explode(', ', $allowedFileExtensions));
+		$allowedFileExtensions = array_map(function($string) {
+			return trim(strtolower($string));
+		}, explode(', ', $allowedFileExtensions));
 		$matchingFiles = new DirectoryItemCollection();
 		foreach ($this as $item) {
 			/** @var $item DirectoryItem */
-			if (in_array($item->getFileExtension(), $allowedFileExtensions)) {
+			if (in_array(strtolower($item->getFileExtension()), $allowedFileExtensions)) {
 				$matchingFiles->add($item);
 			}
 		}
@@ -30,6 +32,9 @@ class DirectoryItemCollection extends AbstractModelCollection {
 		$directories = new DirectoryItemCollection();
 		foreach ($this as $item) {
 			/** @var $item DirectoryItem */
+			if ($item->getLabel() === '@eaDir') {
+				continue;
+			}
 			if ($item->isDirectory()) {
 				$directories->add($item);
 			}

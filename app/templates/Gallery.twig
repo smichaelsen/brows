@@ -7,7 +7,7 @@
 </head>
 <body>
 {% if rootline|length %}
-    rootline:
+    <p>rootline:</p>
     <ul>
         {% for segment in rootline %}
             {% if loop.last == false %}
@@ -17,13 +17,14 @@
     </ul>
 {% endif %}
 {% if directories|length %}
-    Unterordner:
+    <p>Unterordner:</p>
     <ul>
         {% for directory in directories %}
             <li><a href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a></li>
         {% endfor %}
     </ul>
 {% endif %}
+<h1>{{ currentPath }}</h1>
 <div class="wrap">
 {% for item in items %}
     <div class="box">

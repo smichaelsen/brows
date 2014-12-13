@@ -52,6 +52,7 @@ class GalleryController extends AbstractController {
 		$currentDirectory = $this->mount->getItems($currentPath);
 		$directories = $currentDirectory->getDirectories();
 		$items = $currentDirectory->getFilesByExtensions($this->allowedFileExtensions);
+		$this->response->set('currentPath', $currentPath === '.' ? 'Home' : $currentPath);
 		$this->response->set('directories', $directories);
 		$this->response->set('items', $items);
 	}
