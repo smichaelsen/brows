@@ -43,6 +43,7 @@ class ImagePublisher {
 		if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
 			$image = $this->imageConverter->open($item->getAbsolutePath());
 			$this->processImage($image, $width, $height);
+			$this->ensureFolderByPath($this->publicDirectoryMount->getRootPath() . $targetFilename);
 			$image->save($this->publicDirectoryMount->getRootPath() . $targetFilename);
 		}
 		return $this->publicDirectoryMount->getAbsolutePublicPath() . $targetFilename;
@@ -55,7 +56,9 @@ class ImagePublisher {
 	 * @return string
 	 */
 	protected function hash($input, $len = 10) {
-		return substr(md5($input),0,$len);
+		$hash = substr(md5($input), 0, $len);
+		$hash{2} = '/';
+		return $hash;
 	}
 
 	/**
@@ -91,6 +94,16 @@ class ImagePublisher {
 			// proportional scale
 			// TODO
 		}
+	}
+
+	/**
+	 * @param string $targetFilepath
+	 */
+	protected function ensureFolderByPath($targetFilepath) {
+		$pathParts = explode('/', $targetFilepath);
+		array_pop($pathParts);
+		$targetDirectory = join('/', $pathParts);
+		mkdir($targetDirectory, 0777, TRUE);
 	}
 
 }
