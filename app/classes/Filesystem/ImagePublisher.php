@@ -55,7 +55,7 @@ class ImagePublisher {
 	 *
 	 * @return string
 	 */
-	protected function hash($input, $len = 10) {
+	protected function hash($input, $len = 12) {
 		$hash = substr(md5($input), 0, $len);
 		$hash{2} = '/';
 		return $hash;
@@ -104,7 +104,7 @@ class ImagePublisher {
 		array_pop($pathParts);
 		$targetDirectory = join('/', $pathParts);
 		if (!is_dir($targetDirectory)) {
-			@mkdir($targetDirectory, 0777, TRUE);
+			mkdir($targetDirectory, 0777, TRUE);
 		}
 	}
 
