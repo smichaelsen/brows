@@ -39,7 +39,7 @@ class ImagePublisher {
 			$height,
 		];
 		$hash = $this->hash(serialize($hashIngredients));
-		$targetFilename = $hash . '.' . $item->getFileExtension();
+		$targetFilename = $hash . '.' . strtolower($item->getFileExtension());
 		if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
 			$image = $this->imageConverter->open($item->getAbsolutePath());
 			$this->processImage($image, $width, $height);
