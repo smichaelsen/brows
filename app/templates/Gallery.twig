@@ -2,8 +2,6 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('fancybox/jquery.fancybox.css') }}" type="text/css" media="screen" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
 </head>
 <body>
 {% if rootline|length %}
@@ -28,12 +26,25 @@
 <div class="wrap">
 {% for item in items %}
     <div class="box">
-        <div class="boxInner">
-            <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery"><img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" /></a>
-        </div>
+        {% if isPublished(item) %}
+            <div class="boxInner">
+                <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery">
+                    <img src="{{ publicUrl(item, thumbnailWidth, thumbnailHeight) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                </a>
+            </div>
+        {% else %}
+            <div class="boxInner notloaded">
+                <a data-deferred-href="{{ item.getItemPath }}" data-fancybox-group="gallery">
+                    <img data-deferred-src="{{ item.getItemPath }}" src="{{ asset('loader.gif') }}" data-deferred-height="{{ thumbnailHeight }}" data-deferred-width="{{ thumbnailWidth }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                </a>
+            </div>
+        {% endif %}
     </div>
 {%  endfor %}
 </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
+<script type="text/javascript" src="{{ asset('brows.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('a').fancybox();

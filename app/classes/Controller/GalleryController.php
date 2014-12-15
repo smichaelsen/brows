@@ -3,6 +3,7 @@ namespace Smichaelsen\Brows\Controller;
 
 use AppZap\PHPFramework\Configuration\Configuration;
 use AppZap\PHPFramework\Mvc\AbstractController;
+use AppZap\PHPFramework\Mvc\View\TwigView;
 use Smichaelsen\Brows\Domain\Collection\DirectoryItemCollection;
 use Smichaelsen\Brows\Domain\Model\DirectoryItem;
 use Smichaelsen\Brows\Filesystem\ImagePublisher;
@@ -19,6 +20,11 @@ class GalleryController extends AbstractController {
 	 * @var LocalDirectoryMount
 	 */
 	protected $mount;
+
+	/**
+	 * @var TwigView
+	 */
+	protected $response;
 
 	/**
 	 * @throws \Exception
@@ -55,6 +61,8 @@ class GalleryController extends AbstractController {
 		$this->response->set('currentPath', $currentPath === '.' ? 'Home' : $currentPath);
 		$this->response->set('directories', $directories);
 		$this->response->set('items', $items);
+		$this->response->set('thumbnailHeight', 400);
+		$this->response->set('thumbnailWidth', 400);
 	}
 
 	/**
@@ -85,7 +93,10 @@ class GalleryController extends AbstractController {
 	protected function registerTwigFunctions() {
 		$imagePublisher = new ImagePublisher();
 		$this->response->add_output_function('publicUrl', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
-			return $imagePublisher->publish($image, $width, $height);
+			return $imagePublisher->publicUrl($image, $width, $height);
+		});
+		$this->response->add_output_function('isPublished', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
+			return $imagePublisher->isPublished($image, $width, $height);
 		});
 		$this->response->add_output_function('asset', function($path) {
 			$path = 'assets/' . trim($path, '/') . '/';

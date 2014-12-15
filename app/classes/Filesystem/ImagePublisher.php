@@ -27,26 +27,42 @@ class ImagePublisher {
 
 	/**
 	 * @param DirectoryItem $item
-	 * @param $width
-	 * @param $height
+	 * @param int $width
+	 * @param int $height
 	 *
 	 * @return string
 	 */
 	public function publish(DirectoryItem $item, $width = NULL, $height = NULL) {
-		$hashIngredients = [
-			$item->getItemPath(),
-			$width,
-			$height,
-		];
-		$hash = $this->hash(serialize($hashIngredients));
-		$targetFilename = $hash . '.' . strtolower($item->getFileExtension());
-		if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
+		$targetFilename = $this->getTargetFilename($item, $width, $height);
+		if (!$this->isPublished($item, $width, $height)) {
 			$image = $this->imageConverter->open($item->getAbsolutePath());
 			$this->processImage($image, $width, $height);
 			$this->ensureFolderByPath($this->publicDirectoryMount->getRootPath() . $targetFilename);
 			$image->save($this->publicDirectoryMount->getRootPath() . $targetFilename);
 		}
 		return $this->publicDirectoryMount->getAbsolutePublicPath() . $targetFilename;
+	}
+
+	/**
+	 * @param DirectoryItem $item
+	 * @param int $width
+	 * @param int $height
+	 * @return string
+	 */
+	public function publicUrl(DirectoryItem $item, $width = NULL, $height = NULL) {
+		$targetFilename = $this->getTargetFilename($item, $width, $height);
+		return $this->publicDirectoryMount->getAbsolutePublicPath() . $targetFilename;
+	}
+
+	/**
+	 * @param DirectoryItem $item
+	 * @param int $width
+	 * @param int $height
+	 * @return bool
+	 */
+	public function isPublished(DirectoryItem $item, $width = NULL, $height = NULL) {
+		$targetFilename = $this->getTargetFilename($item, $width, $height);
+		return file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename);
 	}
 
 	/**
@@ -106,6 +122,25 @@ class ImagePublisher {
 		if (!is_dir($targetDirectory)) {
 			mkdir($targetDirectory, 0777, TRUE);
 		}
+	}
+
+	/**
+	 * @param \Smichaelsen\Brows\Domain\Model\DirectoryItem $item
+	 * @param $width
+	 * @param $height
+	 *
+	 * @return string
+	 */
+	protected function getTargetFilename(DirectoryItem $item, $width, $height) {
+		$hashIngredients = [
+			$item->getItemPath(),
+			$width,
+			$height,
+		];
+		$hash = $this->hash(serialize($hashIngredients));
+		$targetFilename = $hash . '.' . strtolower($item->getFileExtension());
+
+		return $targetFilename;
 	}
 
 }

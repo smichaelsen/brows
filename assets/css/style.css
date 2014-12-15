@@ -30,6 +30,9 @@ h1, p {
     bottom: 10px;
     overflow: hidden;
 }
+.boxInner.notloaded {
+    background-color: #333;
+}
 .boxInner img {
     width: 100%;
 }
