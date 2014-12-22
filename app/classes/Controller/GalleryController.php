@@ -92,13 +92,13 @@ class GalleryController extends AbstractController {
 	 */
 	protected function registerTwigFunctions() {
 		$imagePublisher = new ImagePublisher();
-		$this->response->add_output_function('publicUrl', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
+		$this->response->addOutputFunction('publicUrl', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
 			return $imagePublisher->publicUrl($image, $width, $height);
 		});
-		$this->response->add_output_function('isPublished', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
+		$this->response->addOutputFunction('isPublished', function($image, $width = NULL, $height = NULL) use ($imagePublisher){
 			return $imagePublisher->isPublished($image, $width, $height);
 		});
-		$this->response->add_output_function('asset', function($path) {
+		$this->response->addOutputFunction('asset', function($path) {
 			$path = 'assets/' . trim($path, '/') . '/';
 			$prefix = Configuration::get('phpframework', 'uri_path_prefix', FALSE);
 			if ($prefix) {
