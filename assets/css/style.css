@@ -86,7 +86,6 @@ body.no-touch .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleB
     .box {
         margin-right: 1.66%;
         width: 23.75%;
-        padding-bottom: 25%;
     }
     .box:nth-child(4n) {
         margin-right: 0;
@@ -97,7 +96,6 @@ body.no-touch .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleB
     .box {
         margin-right: 1.25%;
         width: 19%;
-        padding-bottom: 25%;
     }
     .box:nth-child(5n) {
         margin-right: 0;
