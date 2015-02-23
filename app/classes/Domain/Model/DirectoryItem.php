@@ -53,7 +53,8 @@ class DirectoryItem extends AbstractModel{
 	 * @return string
 	 */
 	public function getLabel() {
-		return $this->label ?: array_pop(explode('/', rtrim($this->itemPath, '/')));
+		$pathParts = explode('/', rtrim($this->itemPath, '/'));
+		return $this->label ?: array_pop($pathParts);
 	}
 
 	/**
@@ -68,7 +69,7 @@ class DirectoryItem extends AbstractModel{
 	 */
 	public function getFileExtension() {
 		$pathInfo = pathinfo($this->itemPath);
-		return $pathInfo['extension'];
+		return array_key_exists('extension', $pathInfo) ? $pathInfo['extension'] : '';
 	}
 
 	/**
