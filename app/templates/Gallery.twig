@@ -1,7 +1,9 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ asset('materialize/bin/materialize.css') }}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{{ asset('fancybox/jquery.fancybox.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <script type="text/javascript" src="{{ asset('jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('materialize/bin/materialize.js') }}"></script>
     <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
 </head>
@@ -10,7 +12,7 @@
     <div class="row">
         <nav class="col s12 m12 l4">
             {% if rootline|length %}
-                <ul>
+                <ul class="breadcrumbs">
                     {% for segment in rootline %}
                         {% if loop.last == false %}
                             <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
@@ -21,9 +23,11 @@
                 </ul>
             {% endif %}
             {% if directories|length %}
-                <ul>
+                <ul class="folders">
                     {% for directory in directories %}
-                        <li><a href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a></li>
+                        <li>
+                            <a class="waves-effect deep-orange accent-4 btn" href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -42,5 +46,10 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('a').fancybox();
+    });
+</script>
 </body>
 </html>

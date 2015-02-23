@@ -12,6 +12,33 @@ nav {
     height: auto;
     box-shadow: 1px 1px 2px 2px #333;
 }
+nav ul {
+    overflow: auto;
+}
+nav ul li,
+nav ul li.active,
+nav ul li:hover {
+    background-color: transparent;
+}
+nav ul li a,
+nav ul li strong {
+    padding: 0 1rem;
+}
+nav ul.breadcrumbs li:after {
+    content: ">";
+}
+nav ul.breadcrumbs li:last-child:after {
+    content: "";
+}
+nav ul.breadcrumbs li a:hover {
+    text-decoration: underline;
+}
+nav ul.folders li {
+    float: none;
+}
+nav ul.folders a.btn {
+    display: block;
+}
 img {
     height: auto;
     width: 100%;
