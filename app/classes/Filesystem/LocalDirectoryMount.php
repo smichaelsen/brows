@@ -68,11 +68,11 @@ class LocalDirectoryMount {
 	 */
 	public function setRootPath($rootPath) {
 		$rootPath = Configuration::get('phpframework', 'project_root') . $rootPath;
-		$rootPath = rtrim(realpath($rootPath), '/') . '/';
-		if ($rootPath === FALSE) {
+		$realRootPath = realpath($rootPath);
+		if ($realRootPath === FALSE) {
 			throw new \Exception('root path ' . $rootPath . ' does not exist.', 1417768634);
 		}
-		$this->rootPath = $rootPath;
+		$this->rootPath = rtrim($realRootPath, '/') . '/';
 	}
 
 	/**
