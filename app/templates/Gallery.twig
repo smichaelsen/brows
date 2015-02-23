@@ -1,38 +1,50 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('materialize/bin/materialize.css') }}" type="text/css" media="screen" />
     <link rel="stylesheet" href="{{ asset('fancybox/jquery.fancybox.css') }}" type="text/css" media="screen" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <script type="text/javascript" src="{{ asset('jquery-2.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('materialize/bin/materialize.js') }}"></script>
     <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
 </head>
 <body>
-{% if rootline|length %}
-    <p>rootline:</p>
-    <ul>
-        {% for segment in rootline %}
-            {% if loop.last == false %}
-                <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
+<div class="container">
+    <div class="row">
+        <nav class="col s12 m12 l4">
+            {% if rootline|length %}
+                <ul class="breadcrumbs">
+                    {% for segment in rootline %}
+                        {% if loop.last == false %}
+                            <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
+                        {% else %}
+                            <li class="active"><strong>{{ segment.label }}</strong></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             {% endif %}
-        {% endfor %}
-    </ul>
-{% endif %}
-{% if directories|length %}
-    <p>Unterordner:</p>
-    <ul>
-        {% for directory in directories %}
-            <li><a href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
-<h1>{{ currentPath }}</h1>
-<div class="wrap">
-{% for item in items %}
-    <div class="box">
-        <div class="boxInner">
-            <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery"><img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" /></a>
+            {% if directories|length %}
+                <ul class="folders">
+                    {% for directory in directories %}
+                        <li>
+                            <a class="waves-effect deep-orange accent-4 btn" href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </nav>
+        <div class="gallery col s12 m12 l8">
+            <h1>{{ currentPath }}</h1>
+            <div class="row">
+                {% for item in items %}
+                    <div class="col s6 m4 l4">
+                        <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery">
+                            <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                        </a>
+                    </div>
+                {%  endfor %}
+            </div>
         </div>
     </div>
-{%  endfor %}
 </div>
 <script>
     $(document).ready(function() {
