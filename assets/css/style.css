@@ -8,100 +8,37 @@ body {
 a {
     color: #fff;
 }
-h1, p {
-    padding-left: 10px;
+nav {
+    height: auto;
+    box-shadow: 1px 1px 2px 2px #333;
 }
-.wrap {
-    overflow: hidden;
-    margin: 1%;
-}
-.box {
-    background-color: #fff;
-    float: left;
-    position: relative;
-    padding-bottom: 20%;
-    margin-bottom: 20px;
-}
-.boxInner {
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    top: 10px;
-    bottom: 10px;
-    overflow: hidden;
-}
-.boxInner img {
+img {
+    height: auto;
     width: 100%;
 }
-.boxInner .titleBox {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-bottom: -50px;
-    background: #000;
-    background: rgba(0, 0, 0, 0.5);
-    color: #FFF;
-    padding: 10px;
-    text-align: center;
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    -o-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
+strong {
+    font-weight: bold;
 }
-body.no-touch .boxInner:hover .titleBox, body.touch .boxInner.touchFocus .titleBox {
-    margin-bottom: 0;
+.container {
+    background-color: #666;
+    box-shadow: 1px 1px 2px 2px #222;
+    padding-bottom: 50px;
+    width: 100%;
 }
-@media only screen and (max-width : 480px) {
-    /* Smartphone view: 1 tile */
-    .box {
-        width: 100%;
-        padding-bottom: 100%;
+@media only screen and (min-width : 601px) {
+    .container {
+        width: 90%;
     }
 }
-@media only screen and (max-width : 650px) and (min-width : 481px) {
-    /* Tablet view: 2 tiles */
-    .box {
-        margin-right: 5%;
-        width: 47.5%;
-        padding-bottom: 50%;
-    }
-    .box:nth-child(2n) {
-        margin-right: 0;
+
+@media only screen and (min-width : 993px) {
+    .container {
+        width: 80%;
     }
 }
-@media only screen and (max-width : 1050px) and (min-width : 651px) {
-    /* Small desktop / ipad view: 3 tiles */
-    .box {
-        margin-right: 2.5%;
-        width: 31.66%;
-        padding-bottom: 33.3%;
-    }
-    .box:nth-child(3n) {
-        margin-right: 0;
-    }
-}
-@media only screen and (max-width : 1290px) and (min-width : 1051px) {
-    /* Medium desktop: 4 tiles */
-    .box {
-        margin-right: 1.66%;
-        width: 23.75%;
-    }
-    .box:nth-child(4n) {
-        margin-right: 0;
-    }
-}
-@media only screen and (min-width : 1291px) {
-    /* Medium desktop: 5 tiles */
-    .box {
-        margin-right: 1.25%;
-        width: 19%;
-    }
-    .box:nth-child(5n) {
-        margin-right: 0;
-    }
-}
-#innerContent a,
-#innerContent img {
+
+.gallery a {
     display: block;
+    border: 2px solid #fff;
+    margin: 0.75rem 0;
 }

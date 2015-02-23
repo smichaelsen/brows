@@ -6,33 +6,41 @@
     <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
 </head>
 <body>
-{% if rootline|length %}
-    <p>rootline:</p>
-    <ul>
-        {% for segment in rootline %}
-            {% if loop.last == false %}
-                <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
+<div class="container">
+    <div class="row">
+        <nav class="col s12 m12 l4">
+            {% if rootline|length %}
+                <ul>
+                    {% for segment in rootline %}
+                        {% if loop.last == false %}
+                            <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
+                        {% else %}
+                            <li class="active"><strong>{{ segment.label }}</strong></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             {% endif %}
-        {% endfor %}
-    </ul>
-{% endif %}
-{% if directories|length %}
-    <p>Unterordner:</p>
-    <ul>
-        {% for directory in directories %}
-            <li><a href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a></li>
-        {% endfor %}
-    </ul>
-{% endif %}
-<h1>{{ currentPath }}</h1>
-<div class="wrap">
-{% for item in items %}
-    <div class="box">
-        <div class="boxInner">
-            <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery"><img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" /></a>
+            {% if directories|length %}
+                <ul>
+                    {% for directory in directories %}
+                        <li><a href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </nav>
+        <div class="gallery col s12 m12 l8">
+            <h1>{{ currentPath }}</h1>
+            <div class="row">
+                {% for item in items %}
+                    <div class="col s6 m4 l4">
+                        <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery">
+                            <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                        </a>
+                    </div>
+                {%  endfor %}
+            </div>
         </div>
     </div>
-{%  endfor %}
 </div>
 </body>
 </html>
