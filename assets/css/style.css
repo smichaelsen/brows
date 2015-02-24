@@ -1,79 +1,66 @@
 body {
-    background-color: #333;
-    color: #fff;
-    font: 14px/16px 'Lucida Sans',sans-serif;
-    margin: 0;
-    padding: 0;
-}
+  background-color: #333;
+  color: #fff;
+  margin: 0;
+  padding: 0; }
+
 .btn {
-    text-transform: none;
-    margin-bottom: 0.5rem;
-}
+  text-transform: none;
+  margin-bottom: 0.5rem; }
+
 a {
-    color: #fff;
-}
+  color: #fff; }
+
 nav {
-    height: auto;
-    box-shadow: 1px 1px 2px 2px #333;
-}
-nav ul {
-    overflow: auto;
-}
-nav ul li,
-nav ul li.active,
-nav ul li:hover {
-    background-color: transparent;
-}
-nav ul li a,
-nav ul li strong {
-    padding: 0 1rem;
-}
-nav ul.breadcrumbs li:after {
-    content: ">";
-}
-nav ul.breadcrumbs li:last-child:after {
-    content: "";
-}
+  height: auto;
+  @box-shadow (1px 1px 2px 2px #333); }
+  nav ul {
+    overflow: auto; }
+  nav li, nav li.active, nav li:hover {
+    background-color: transparent; }
+    nav li a, nav li strong, nav li.active a, nav li.active strong, nav li:hover a, nav li:hover strong {
+      padding: 0 1rem; }
+  nav ul.breadcrumbs li:after {
+    content: ">"; }
+  nav ul.breadcrumbs li:last-child:after {
+    content: ""; }
+
 nav ul.breadcrumbs li a:hover {
-    text-decoration: underline;
-}
+  text-decoration: underline; }
+
 nav ul.folders {
-    padding-top: 0.5rem;
-}
-nav ul.folders li {
-    float: none;
-}
+  padding-top: 0.6rem; }
+  nav ul.folders li {
+    float: none; }
+
 nav ul.folders a.btn {
-    display: block;
-    font-size: 1.4rem;
-}
+  display: block;
+  font-size: 1.4rem; }
+
 img {
-    height: auto;
-    width: 100%;
-}
+  height: auto;
+  width: 100%; }
+
 strong {
-    font-weight: bold;
-}
+  font-weight: bold; }
+
 .container {
-    background-color: #666;
-    box-shadow: 1px 1px 2px 2px #222;
-    padding-bottom: 50px;
-    width: 100%;
-}
-@media only screen and (min-width : 601px) {
-    .container {
-        width: 90%;
-    }
-}
+  background-color: #666;
+  box-shadow: 1px 1px 2px 2px #222;
+  padding-bottom: 50px;
+  width: 100%; }
 
-@media only screen and (min-width : 993px) {
-    .container {
-        width: 80%;
-    }
-}
-
+@media only screen and (min-width: 601px) {
+  .container {
+    width: 90%; } }
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 80%; } }
 .gallery a {
-    display: block;
-    border: 2px solid #fff;
-    margin: 0.75rem 0;
-}
+  border: 2px solid #fff;
+  display: block;
+  margin: 0.75rem 0; }
+
+/*# sourceMappingURL=style.css.map */
+
+/*# sourceMappingURL=style.css.map */
