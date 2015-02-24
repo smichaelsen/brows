@@ -80,10 +80,14 @@ strong {
   }
 }
 
-.gallery a {
-  border: 2px solid #fff;
-  display: block;
-  margin: 0.75rem 0;
+.card {
+  color: #333;
+  .card-content {
+    padding: 0.3rem 0.6rem;
+    .card-title {
+      font-size: 1.25em;
+    }
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
