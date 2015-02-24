@@ -8,7 +8,7 @@ module.exports = function(grunt) {
             },
             target: {
                 files: {
-                    './assets/css/style.min.css': ['./assets/css/style.css']
+                    './assets/css/style.min.css': ['./assets/css/swipebox.css', './assets/css/style.css']
                 }
             }
         },
@@ -16,20 +16,21 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'assets/css/style.css' : 'assets/sass/style.scss',
-                    'assets/css/materialize.css' : 'assets/sass/materialize.scss'
+                    'assets/css/materialize.css' : 'assets/sass/materialize.scss',
+                    'assets/css/swipebox.css' : 'assets/swipebox/scss/swipebox.scss'
                 }
             }
         },
         uglify: {
             my_target: {
                 files: {
-                    'assets/main.js': ['assets/jquery-2.1.1.min.js', 'assets/fancybox/jquery.fancybox.js']
+                    'assets/main.js': ['assets/jquery-2.1.1.min.js', 'assets/swipebox/src/js/jquery.swipebox.js']
                 }
             }
         },
         watch: {
             css: {
-                files: 'assets/sass/*.scss',
+                files: ['assets/sass/*.scss', 'assets/swipebox/scss/*.scss'],
                 tasks: ['sass', 'uglify', 'cssmin']
             }
         }

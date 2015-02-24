@@ -1,11 +1,10 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ asset('css/materialize.css') }}" type="text/css" media="screen" />
-    <link rel="stylesheet" href="{{ asset('fancybox/jquery.fancybox.css') }}" type="text/css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.min.css') }}">
     <script type="text/javascript" src="{{ asset('jquery-2.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('materialize/bin/materialize.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('fancybox/jquery.fancybox.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('main.js') }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
@@ -40,7 +39,7 @@
                     <div class="col s12 m6 l6">
                         <div class="card">
                             <div class="card-image activator">
-                                <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery">
+                                <a href="{{ publicUrl(item) }}" class="swipebox" rel="gallery">
                                     <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
                                 </a>
                             </div>
@@ -51,7 +50,7 @@
                                 <span class="card-title grey-text text-darken-4">{{ item.label }} <i class="mdi-navigation-close right"></i></span>
                                 <div class="row">
                                     <div class="col s5">
-                                        <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery_reveal">
+                                        <a href="{{ publicUrl(item) }}" class="swipebox" rel="gallery_reveal">
                                             <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
                                         </a>
                                         <p class="modify-image-actions">
@@ -95,7 +94,7 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('a').fancybox();
+        $('.swipebox').swipebox();
     });
 </script>
 </body>
