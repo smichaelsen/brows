@@ -89,10 +89,15 @@ strong {
     }
   }
   .card-reveal {
-    p.modify-image-actions {
-      font-size: 1.4rem;
+    .row {
+      margin-bottom: 0.6rem;
+    }
+    p {
       margin: 0;
-      text-align: center;
+      &.modify-image-actions {
+        font-size: 1.4rem;
+        text-align: center;
+      }
     }
   }
 }

@@ -62,10 +62,13 @@ strong {
     padding: 0.3rem 0.6rem; }
     .card .card-content .card-title {
       font-size: 1.25em; }
-  .card .card-reveal p.modify-image-actions {
-    font-size: 1.4rem;
-    margin: 0;
-    text-align: center; }
+  .card .card-reveal .row {
+    margin-bottom: 0.6rem; }
+  .card .card-reveal p {
+    margin: 0; }
+    .card .card-reveal p.modify-image-actions {
+      font-size: 1.4rem;
+      text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
 

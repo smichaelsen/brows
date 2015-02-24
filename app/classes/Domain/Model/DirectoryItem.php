@@ -4,86 +4,106 @@ namespace Smichaelsen\Brows\Domain\Model;
 use AppZap\PHPFramework\Domain\Model\AbstractModel;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 
-class DirectoryItem extends AbstractModel{
+class DirectoryItem extends AbstractModel {
 
-	/**
-	 * @var string
-	 */
-	protected $itemPath;
+  /**
+   * @var array
+   */
+  protected $exifData;
 
-	/**
-	 * @var LocalDirectoryMount
-	 */
-	protected $mount;
+  /**
+   * @var string
+   */
+  protected $itemPath;
 
-	/**
-	 * @var string
-	 */
-	protected $label;
+  /**
+   * @var LocalDirectoryMount
+   */
+  protected $mount;
 
-	/**
-	 * @return string
-	 */
-	public function getItemPath() {
-		return $this->itemPath;
-	}
+  /**
+   * @var string
+   */
+  protected $label;
 
-	/**
-	 * @param string $itemPath
-	 */
-	public function setItemPath($itemPath) {
-		$this->itemPath = ltrim($itemPath, './');
-	}
+  /**
+   * @return array
+   */
+  public function getExifData() {
+    if (!isset($this->exifData)) {
+      $this->exifData = @exif_read_data($this->getAbsolutePath());
+      if ($this->exifData === FALSE) {
+        $size = getimagesize($this->getAbsolutePath());
+        $this->exifData['ExifImageWidth'] = $size[0];
+        $this->exifData['ExifImageLength'] = $size[1];
+      }
+    }
+    return $this->exifData;
+  }
 
-	/**
-	 * @return LocalDirectoryMount
-	 */
-	public function getMount() {
-		return $this->mount;
-	}
+  /**
+   * @return string
+   */
+  public function getItemPath() {
+    return $this->itemPath;
+  }
 
-	/**
-	 * @param LocalDirectoryMount $mount
-	 */
-	public function setMount($mount) {
-		$this->mount = $mount;
-	}
+  /**
+   * @param string $itemPath
+   */
+  public function setItemPath($itemPath) {
+    $this->itemPath = ltrim($itemPath, './');
+  }
 
-	/**
-	 * @return string
-	 */
-	public function getLabel() {
-		$pathParts = explode('/', rtrim($this->itemPath, '/'));
-		return $this->label ?: array_pop($pathParts);
-	}
+  /**
+   * @return LocalDirectoryMount
+   */
+  public function getMount() {
+    return $this->mount;
+  }
 
-	/**
-	 * @param string $label
-	 */
-	public function setLabel($label) {
-		$this->label = $label;
-	}
+  /**
+   * @param LocalDirectoryMount $mount
+   */
+  public function setMount($mount) {
+    $this->mount = $mount;
+  }
 
-	/**
-	 * @return string
-	 */
-	public function getFileExtension() {
-		$pathInfo = pathinfo($this->itemPath);
-		return array_key_exists('extension', $pathInfo) ? $pathInfo['extension'] : '';
-	}
+  /**
+   * @return string
+   */
+  public function getLabel() {
+    $pathParts = explode('/', rtrim($this->itemPath, '/'));
+    return $this->label ?: array_pop($pathParts);
+  }
 
-	/**
-	 * @return string
-	 */
-	public function getAbsolutePath() {
-		return $this->mount->getRootPath() . $this->itemPath;
-	}
+  /**
+   * @param string $label
+   */
+  public function setLabel($label) {
+    $this->label = $label;
+  }
 
-	/**
-	 * @return bool
-	 */
-	public function isDirectory() {
-		return is_dir($this->getAbsolutePath());
-	}
+  /**
+   * @return string
+   */
+  public function getFileExtension() {
+    $pathInfo = pathinfo($this->itemPath);
+    return array_key_exists('extension', $pathInfo) ? $pathInfo['extension'] : '';
+  }
+
+  /**
+   * @return string
+   */
+  public function getAbsolutePath() {
+    return $this->mount->getRootPath() . $this->itemPath;
+  }
+
+  /**
+   * @return bool
+   */
+  public function isDirectory() {
+    return is_dir($this->getAbsolutePath());
+  }
 
 }
