@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <nav class="col s12 m12 l4">
+        <nav class="col s12 m12 l3">
             {% if rootline|length %}
                 <ul class="breadcrumbs">
                     {% for segment in rootline %}
@@ -32,14 +32,47 @@
                 </ul>
             {% endif %}
         </nav>
-        <div class="gallery col s12 m12 l8">
+        <div class="gallery col s12 m12 l9">
             <h1>{{ currentPath }}</h1>
             <div class="row">
                 {% for item in items %}
-                    <div class="col s6 m4 l4">
-                        <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery">
-                            <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
-                        </a>
+                    <div class="col s12 m6 l6">
+                        <div class="card">
+                            <div class="card-image activator">
+                                <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery">
+                                    <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                                </a>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">{{ item.label }} <i class="mdi-navigation-more-vert right"></i></span>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">{{ item.label }} <i class="mdi-navigation-close right"></i></span>
+                                <div class="row">
+                                    <div class="col s5">
+                                        <a href="{{ publicUrl(item) }}" data-fancybox-group="gallery_reveal">
+                                            <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                                        </a>
+                                        <p class="modify-image-actions">
+                                            <i class="mdi-content-undo"></i>
+                                            <i class="mdi-content-redo"></i>
+                                            <i class="mdi-action-visibility-off"></i>
+                                        </p>
+                                    </div>
+                                    <div class="col s7">
+                                        <p>
+                                            <i class="mdi-action-schedule"></i> 12.02.2014<br>
+                                            <i class="mdi-image-camera-alt"></i> iPhone 5
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <img src="http://www.blog.tocki.de/wp-content/uploads/2009/08/google-maps-api.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 {%  endfor %}
             </div>
