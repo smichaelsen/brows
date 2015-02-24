@@ -5,6 +5,10 @@ body {
     margin: 0;
     padding: 0;
 }
+.btn {
+    text-transform: none;
+    margin-bottom: 0.5rem;
+}
 a {
     color: #fff;
 }
@@ -33,11 +37,15 @@ nav ul.breadcrumbs li:last-child:after {
 nav ul.breadcrumbs li a:hover {
     text-decoration: underline;
 }
+nav ul.folders {
+    padding-top: 0.5rem;
+}
 nav ul.folders li {
     float: none;
 }
 nav ul.folders a.btn {
     display: block;
+    font-size: 1.4rem;
 }
 img {
     height: auto;
