@@ -37,6 +37,26 @@ class DirectoryItem extends AbstractModel {
         $this->exifData['ExifImageWidth'] = $size[0];
         $this->exifData['ExifImageLength'] = $size[1];
       }
+      if (isset($this->exifData['GPSLatitude']) && is_array($this->exifData['GPSLatitude'])) {
+        list($decimalNumerator, $decimalDenominator) = explode('/', $this->exifData['GPSLatitude'][0]);
+        list($minutesNumerator, $minutesDenominator) = explode('/', $this->exifData['GPSLatitude'][1]);
+        list($secondsNumerator, $secondsDenominator) = explode('/', $this->exifData['GPSLatitude'][2]);
+        $this->exifData['GPSLatitudeDecimal'] = $this->coordinatesDsmToDecimal(
+          $decimalNumerator / $decimalDenominator,
+          $minutesNumerator / $minutesDenominator,
+          $secondsNumerator / $secondsDenominator
+        );
+      }
+      if (isset($this->exifData['GPSLongitude']) && is_array($this->exifData['GPSLongitude'])) {
+        list($decimalNumerator, $decimalDenominator) = explode('/', $this->exifData['GPSLongitude'][0]);
+        list($minutesNumerator, $minutesDenominator) = explode('/', $this->exifData['GPSLongitude'][1]);
+        list($secondsNumerator, $secondsDenominator) = explode('/', $this->exifData['GPSLongitude'][2]);
+        $this->exifData['GPSLongitudeDecimal'] = $this->coordinatesDsmToDecimal(
+          $decimalNumerator / $decimalDenominator,
+          $minutesNumerator / $minutesDenominator,
+          $secondsNumerator / $secondsDenominator
+        );
+      }
     }
     return $this->exifData;
   }
@@ -104,6 +124,16 @@ class DirectoryItem extends AbstractModel {
    */
   public function isDirectory() {
     return is_dir($this->getAbsolutePath());
+  }
+
+  /**
+   * @param float $decimal
+   * @param float $minutes
+   * @param float $seconds
+   * @return float
+   */
+  protected function coordinatesDsmToDecimal($decimal, $minutes, $seconds) {
+    return $decimal + ($minutes * 60 + $seconds) / 3600;
   }
 
 }
