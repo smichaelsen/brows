@@ -14,6 +14,11 @@ class DirectoryItem extends AbstractModel {
   /**
    * @var string
    */
+  protected $fileExtension;
+
+  /**
+   * @var string
+   */
   protected $itemPath;
 
   /**
@@ -108,8 +113,11 @@ class DirectoryItem extends AbstractModel {
    * @return string
    */
   public function getFileExtension() {
-    $pathInfo = pathinfo($this->itemPath);
-    return array_key_exists('extension', $pathInfo) ? $pathInfo['extension'] : '';
+    if (!$this->fileExtension) {
+      $pathInfo = pathinfo($this->itemPath);
+      $this->fileExtension = array_key_exists('extension', $pathInfo) ? strtolower($pathInfo['extension']) : '';
+    }
+    return $this->fileExtension;
   }
 
   /**

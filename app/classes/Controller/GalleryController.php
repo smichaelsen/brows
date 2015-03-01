@@ -7,6 +7,7 @@ use AppZap\PHPFramework\Mvc\View\TwigView;
 use Smichaelsen\Brows\Domain\Collection\DirectoryItemCollection;
 use Smichaelsen\Brows\Domain\Model\DirectoryItem;
 use Smichaelsen\Brows\Filesystem\ImagePublisher;
+use Smichaelsen\Brows\Filesystem\VideoPublisher;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 
 class GalleryController extends AbstractController {
@@ -14,7 +15,7 @@ class GalleryController extends AbstractController {
   /**
    * @var string
    */
-  protected $allowedFileExtensions = 'jpg, jpeg, gif, png';
+  protected $allowedFileExtensions = 'jpg, jpeg, gif, png, mp4';
 
   /**
    * @var LocalDirectoryMount
@@ -97,8 +98,12 @@ class GalleryController extends AbstractController {
    */
   protected function registerTwigFunctions() {
     $imagePublisher = new ImagePublisher();
-    $this->response->addOutputFunction('publicUrl', function ($image, $width = NULL, $height = NULL) use ($imagePublisher) {
+    $videoPublisher = new VideoPublisher();
+    $this->response->addOutputFunction('publicImageUrl', function ($image, $width = NULL, $height = NULL) use ($imagePublisher) {
       return $imagePublisher->publish($image, $width, $height);
+    });
+    $this->response->addOutputFunction('publicVideoUrl', function ($video) use ($videoPublisher) {
+      return $videoPublisher->publish($video);
     });
     $this->response->addOutputFunction('asset', function ($path) {
       $path = 'assets/' . trim($path, '/') . '/';

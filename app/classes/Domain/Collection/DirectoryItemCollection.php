@@ -18,7 +18,7 @@ class DirectoryItemCollection extends AbstractModelCollection {
     $matchingFiles = new DirectoryItemCollection();
     foreach ($this as $item) {
       /** @var $item DirectoryItem */
-      if (in_array(strtolower($item->getFileExtension()), $allowedFileExtensions)) {
+      if (in_array($item->getFileExtension(), $allowedFileExtensions)) {
         $matchingFiles->add($item);
       }
     }

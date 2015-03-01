@@ -37,9 +37,16 @@
                     <div class="col s12 m6 l6">
                         <div class="card">
                             <div class="card-image activator">
-                                <a href="{{ publicUrl(item) }}" class="swipebox" rel="gallery">
-                                    <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
-                                </a>
+                                {% if item.fileExtension == 'mp4' %}
+                                    <video controls>
+                                        <source src="{{ publicVideoUrl(item) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                {% else %}
+                                    <a href="{{ publicImageUrl(item) }}" class="swipebox" rel="gallery">
+                                        <img src="{{ publicImageUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="card-content">
                                 <span class="card-title activator grey-text text-darken-4">{{ item.label }} <i class="mdi-navigation-more-vert right"></i></span>
@@ -47,33 +54,36 @@
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">{{ item.label }} <i class="mdi-navigation-close right"></i></span>
                                 <div class="row">
-                                    <div class="col s5">
-                                        <a href="{{ publicUrl(item) }}" class="swipebox" rel="gallery_reveal">
-                                            <img src="{{ publicUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
-                                        </a>
-                                        <p class="modify-image-actions">
-                                            <i class="mdi-content-undo"></i>
-                                            <i class="mdi-content-redo"></i>
-                                            <i class="mdi-action-visibility-off"></i>
-                                        </p>
-                                    </div>
-                                    <div class="col s7">
-                                        <p>
-                                            {% if item.exifData %}
-                                                {% if item.exifData.DateTime %}
-                                                    <i class="mdi-action-schedule"></i> {{ item.exifData.DateTime }}<br>
+                                    {% if item.fileExtension == 'mp4' %}
+                                    {% else %}
+                                        <div class="col s5">
+                                            <a href="{{ publicImageUrl(item) }}" class="swipebox" rel="gallery_reveal">
+                                                <img src="{{ publicImageUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                                            </a>
+                                            <p class="modify-image-actions">
+                                                <i class="mdi-content-undo"></i>
+                                                <i class="mdi-content-redo"></i>
+                                                <i class="mdi-action-visibility-off"></i>
+                                            </p>
+                                        </div>
+                                        <div class="col s7">
+                                            <p>
+                                                {% if item.exifData %}
+                                                    {% if item.exifData.DateTime %}
+                                                        <i class="mdi-action-schedule"></i> {{ item.exifData.DateTime }}<br>
+                                                    {% endif %}
+                                                    {% if item.exifData.Model %}
+                                                        <i class="mdi-image-camera-alt"></i> {{ item.exifData.Model }}<br>
+                                                    {% endif %}
+                                                    {% if item.exifData.ExifImageWidth %}
+                                                        <i class="mdi-image-nature-people"></i> {{ item.exifData.ExifImageWidth }} x {{ item.exifData.ExifImageLength }}<br>
+                                                    {% endif %}
+                                                {% else %}
+                                                    no data
                                                 {% endif %}
-                                                {% if item.exifData.Model %}
-                                                    <i class="mdi-image-camera-alt"></i> {{ item.exifData.Model }}<br>
-                                                {% endif %}
-                                                {% if item.exifData.ExifImageWidth %}
-                                                    <i class="mdi-image-nature-people"></i> {{ item.exifData.ExifImageWidth }} x {{ item.exifData.ExifImageLength }}<br>
-                                                {% endif %}
-                                            {% else %}
-                                                no data
-                                            {% endif %}
-                                        </p>
-                                    </div>
+                                            </p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="row">
                                     <div class="col s12">
