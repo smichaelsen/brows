@@ -20,16 +20,11 @@ $(document).ready(function () {
         var naturalHeight = video.height();
         var naturalWidth = video.width();
         if (naturalWidth < naturalHeight) {
-            console.log('portrait video. Adjust width of video element');
             video.css('width', (naturalWidth / naturalHeight) * naturalWidth + 'px');
         }
         if (naturalWidth > naturalHeight) {
-            console.log('landscape video. Adjust padding-top of video element and fix height of container');
             video.parent().css('height', naturalWidth + 'px');
             video.css('padding-top', (naturalWidth-naturalHeight) / 2 + 'px');
-        }
-        if (naturalWidth == naturalHeight) {
-            console.log('square video');
         }
     });
 });
