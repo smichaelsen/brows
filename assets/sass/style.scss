@@ -68,7 +68,7 @@ strong {
 
 .container {
   background-color: #666;
-  box-shadow: 1px 1px 2px 2px #222;
+  box-shadow: 1px 1px 2px 2px #222222;
   padding-bottom: 50px;
   width: 100%;
 }
@@ -87,6 +87,9 @@ strong {
 
 .card {
   color: #333;
+  .media-type-mp4 {
+    text-align: center;
+  }
   .card-content {
     padding: 0.3rem 0.6rem;
     .card-title {

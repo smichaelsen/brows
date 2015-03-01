@@ -50,7 +50,7 @@ strong {
 
 .container {
   background-color: #666;
-  box-shadow: 1px 1px 2px 2px #222;
+  box-shadow: 1px 1px 2px 2px #222222;
   padding-bottom: 50px;
   width: 100%; }
 
@@ -62,6 +62,8 @@ strong {
     width: 80%; } }
 .card {
   color: #333; }
+  .card .media-type-mp4 {
+    text-align: center; }
   .card .card-content {
     padding: 0.3rem 0.6rem; }
     .card .card-content .card-title {

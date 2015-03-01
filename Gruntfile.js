@@ -56,13 +56,20 @@ module.exports = function(grunt) {
                         'assets/materialize/bin/materialize.js',
                         'assets/js/app.js'
                     ]
+                },
+                options: {
+                    screwIE8: true
                 }
             }
         },
         watch: {
             css: {
                 files: ['assets/sass/*.scss'],
-                tasks: ['sass', 'uglify', 'cssmin', 'copy']
+                tasks: ['sass', 'cssmin', 'copy']
+            },
+            js: {
+                files: ['assets/js/*.js'],
+                tasks: ['uglify']
             }
         }
     });
