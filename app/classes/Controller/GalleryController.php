@@ -15,7 +15,7 @@ class GalleryController extends AbstractController {
   /**
    * @var string
    */
-  protected $allowedFileExtensions = 'jpg, jpeg, gif, png, mp4';
+  protected $allowedFileExtensions = 'jpg, jpeg, gif, png, mp4, mov';
 
   /**
    * @var LocalDirectoryMount
