@@ -62,7 +62,7 @@ strong {
     width: 80%; } }
 .card {
   color: #333; }
-  .card .media-type-mp4 {
+  .card .card-image {
     text-align: center; }
   .card .card-content {
     padding: 0.3rem 0.6rem; }
