@@ -146,9 +146,17 @@ class DirectoryItem extends AbstractModel {
   public function getTitleImage() {
     if (!$this->titleImage) {
       $items = $this->mount->getItems($this->getItemPath());
-      $items = $items->getFilesByExtensions(Configuration::get('application', 'allowed_file_extensions'));
-      $items->rewind();
-      $this->titleImage = $items->current();
+      $files = $items->getFilesByExtensions(Configuration::get('application', 'allowed_file_extensions'));
+      $files->rewind();
+      $titleImage = $files->current();
+      if (! $titleImage instanceof DirectoryItem) {
+        $directories = $items->getDirectories();
+        $directories->rewind();
+        /** @var DirectoryItem $firstSubDirectory */
+        $firstSubDirectory = $directories->current();
+        $titleImage = $firstSubDirectory->getTitleImage();
+      }
+      $this->titleImage = $titleImage;
     }
     return $this->titleImage;
   }
