@@ -67,6 +67,7 @@ class GalleryController extends AbstractController {
     $this->response->set('currentPath', $currentPath === '.' ? 'Home' : $currentPath);
     $this->response->set('directories', $directories);
     $this->response->set('items', $items);
+    $this->response->set('gmapsStaticMapsApi', Configuration::getSection('application', 'gmaps_static_maps_api'));
   }
 
   /**

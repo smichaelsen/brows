@@ -78,7 +78,7 @@
                                 <div class="row">
                                     <div class="col s12">
                                         {% if item.exifData.GPSLatitudeRef %}
-                                        <img src="http://maps.googleapis.com/maps/api/staticmap?markers=size:mid|color:red|{{ item.exifData.GPSLatitudeDecimal|url_encode }}{{ ','|url_encode }}{{ item.exifData.GPSLongitudeDecimal|url_encode }}&zoom=12&size=400x200" />
+                                        <img src="http://maps.googleapis.com/maps/api/staticmap?markers=size:mid|color:red|{{ item.exifData.GPSLatitudeDecimal|url_encode }}{{ ','|url_encode }}{{ item.exifData.GPSLongitudeDecimal|url_encode }}&zoom=12&size=400x200&key={{ gmapsStaticMapsApi.key }}" />
                                         {% endif %}
                                     </div>
                                 </div>
