@@ -1,6 +1,7 @@
 <?php
 namespace Smichaelsen\Brows\Domain\Model;
 
+use AppZap\PHPFramework\Configuration\Configuration;
 use AppZap\PHPFramework\Domain\Model\AbstractModel;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 
@@ -30,6 +31,11 @@ class DirectoryItem extends AbstractModel {
    * @var string
    */
   protected $label;
+
+  /**
+   * @var DirectoryItem
+   */
+  protected $titleImage;
 
   /**
    * @return array
@@ -132,6 +138,19 @@ class DirectoryItem extends AbstractModel {
    */
   public function isDirectory() {
     return is_dir($this->getAbsolutePath());
+  }
+
+  /**
+   *
+   */
+  public function getTitleImage() {
+    if (!$this->titleImage) {
+      $items = $this->mount->getItems($this->getItemPath());
+      $items = $items->getFilesByExtensions(Configuration::get('application', 'allowed_file_extensions'));
+      $items->rewind();
+      $this->titleImage = $items->current();
+    }
+    return $this->titleImage;
   }
 
   /**

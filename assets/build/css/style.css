@@ -16,10 +16,7 @@ a {
   color: #fff; }
 
 nav {
-  height: auto;
   @box-shadow (1px 1px 2px 2px #333); }
-  nav ul {
-    overflow: auto; }
   nav li, nav li.active, nav li:hover {
     background-color: transparent; }
     nav li a, nav li strong, nav li.active a, nav li.active strong, nav li:hover a, nav li:hover strong {

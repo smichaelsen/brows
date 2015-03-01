@@ -7,10 +7,11 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <nav class="col s12">
+    <nav>
+        <div class="nav-wrapper">
+        <a href="#" class="brand-logo right">photos.michaelsen.io</a>
             {% if rootline|length %}
-                <ul class="breadcrumbs">
+                <ul class="breadcrumbs left">
                     {% for segment in rootline %}
                         {% if loop.last == false %}
                             <li><a href="{{ base_url }}{{ segment.itemPath }}">{{ segment.label }}</a></li>
@@ -20,18 +21,34 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            {% if directories|length %}
-                <ul class="folders">
-                    {% for directory in directories %}
-                        <li>
-                            <a class="waves-effect deep-orange accent-4 btn" href="{{ base_url }}{{ directory.itemPath }}">{{ directory.label }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </nav>
+        </div>
+    </nav>
+    <div class="row">
+        <h3 class="col s12">{{ currentPath }}</h3>
+    </div>
+    <div class="row">
         <div class="gallery col s12">
-            <h3>{{ currentPath }}</h3>
+            {% if directories|length %}
+            <div class="row">
+                {% for directory in directories %}
+                    <div class="col s6 m4 l3">
+                        <div class="card">
+                            <div class="card-image activator media-type-folder">
+                                <a href="{{ base_url }}{{ directory.itemPath }}">
+                                    <img src="{{ publicImageUrl(directory.titleImage, 400, 400) }}" alt="{{ directory.titleImage.label }}" title="{{ directory.titleImage.label }}" />
+                                </a>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title activator grey-text text-darken-4">{{ directory.label }} <i class="mdi-navigation-more-vert right"></i></span>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">{{ directory.label }} <i class="mdi-navigation-close right"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="row">
                 {% for item in items %}
                     <div class="col s12 m6 l4">

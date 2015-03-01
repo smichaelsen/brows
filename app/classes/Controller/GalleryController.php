@@ -13,11 +13,6 @@ use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 class GalleryController extends AbstractController {
 
   /**
-   * @var string
-   */
-  protected $allowedFileExtensions = 'jpg, jpeg, gif, png, mp4, mov';
-
-  /**
    * @var LocalDirectoryMount
    */
   protected $mount;
@@ -64,7 +59,7 @@ class GalleryController extends AbstractController {
     }
     $currentDirectory = $this->mount->getItems($currentPath);
     $directories = $currentDirectory->getDirectories();
-    $items = $currentDirectory->getFilesByExtensions($this->allowedFileExtensions);
+    $items = $currentDirectory->getFilesByExtensions(Configuration::get('application', 'allowed_file_extensions'));
     $this->response->set('currentPath', $currentPath === '.' ? 'Home' : $currentPath);
     $this->response->set('directories', $directories);
     $this->response->set('items', $items);

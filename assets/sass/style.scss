@@ -20,11 +20,7 @@ a {
 }
 
 nav {
-  height: auto;
   @box-shadow(1px 1px 2px 2px #333);
-  ul {
-    overflow: auto;
-  }
   li, li.active, li:hover {
     background-color: transparent;
     a, strong {
