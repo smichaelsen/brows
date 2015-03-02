@@ -4,6 +4,7 @@ namespace Smichaelsen\Brows\Domain\Model;
 use AppZap\PHPFramework\Configuration\Configuration;
 use AppZap\PHPFramework\Domain\Model\AbstractModel;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
+use Smichaelsen\Brows\Utility\FileExtensionUtility;
 
 class DirectoryItem extends AbstractModel {
 
@@ -146,7 +147,7 @@ class DirectoryItem extends AbstractModel {
   public function getTitleImage() {
     if (!$this->titleImage) {
       $items = $this->mount->getItems($this->getItemPath());
-      $files = $items->getFilesByExtensions(Configuration::get('application', 'allowed_file_extensions'));
+      $files = $items->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions(FileExtensionUtility::ALLOWED_IMAGES));
       $files->rewind();
       $titleImage = $files->current();
       if (! $titleImage instanceof DirectoryItem) {
@@ -159,6 +160,35 @@ class DirectoryItem extends AbstractModel {
       $this->titleImage = $titleImage;
     }
     return $this->titleImage;
+  }
+
+  /**
+   * @return int
+   */
+  public function getIncludedImages() {
+    return $this->getIncludedItems(FileExtensionUtility::ALLOWED_IMAGES);
+  }
+
+  /**
+   * @return int
+   */
+  public function getIncludedVideos() {
+    return $this->getIncludedItems(FileExtensionUtility::ALLOWED_VIDEOS);
+  }
+
+  /**
+   * @param string $scope
+   * @return int
+   */
+  public function getIncludedItems($scope = FileExtensionUtility::ALLOWED_ALL) {
+    $items = $this->mount->getItems($this->getItemPath());
+    $files = $items->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions($scope));
+    $count = $files->count();
+    foreach ($items->getDirectories() as $directory) {
+      /** @var DirectoryItem $directory */
+      $count += $directory->getIncludedItems($scope);
+    }
+    return $count;
   }
 
   /**

@@ -9,6 +9,7 @@ use Smichaelsen\Brows\Domain\Model\DirectoryItem;
 use Smichaelsen\Brows\Filesystem\ImagePublisher;
 use Smichaelsen\Brows\Filesystem\VideoPublisher;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
+use Smichaelsen\Brows\Utility\FileExtensionUtility;
 
 class GalleryController extends AbstractController {
 
@@ -59,7 +60,7 @@ class GalleryController extends AbstractController {
     }
     $currentDirectory = $this->mount->getItems($currentPath);
     $directories = $currentDirectory->getDirectories();
-    $items = $currentDirectory->getFilesByExtensions(Configuration::get('application', 'allowed_file_extensions'));
+    $items = $currentDirectory->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions());
     $this->response->set('currentPath', $currentPath === '.' ? 'Home' : $currentPath);
     $this->response->set('directories', $directories);
     $this->response->set('items', $items);
