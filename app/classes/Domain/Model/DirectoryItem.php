@@ -1,12 +1,18 @@
 <?php
 namespace Smichaelsen\Brows\Domain\Model;
 
-use AppZap\PHPFramework\Configuration\Configuration;
+use AppZap\PHPFramework\Cache\CacheFactory;
 use AppZap\PHPFramework\Domain\Model\AbstractModel;
+use AppZap\PHPFramework\Cache\Cache;
 use Smichaelsen\Brows\Filesystem\LocalDirectoryMount;
 use Smichaelsen\Brows\Utility\FileExtensionUtility;
 
 class DirectoryItem extends AbstractModel {
+
+  /**
+   * @var Cache
+   */
+  protected $cache;
 
   /**
    * @var array
@@ -17,6 +23,16 @@ class DirectoryItem extends AbstractModel {
    * @var string
    */
   protected $fileExtension;
+
+  /**
+   * @var int
+   */
+  protected $includedImages;
+
+  /**
+   * @var int
+   */
+  protected $includedVideos;
 
   /**
    * @var string
@@ -37,6 +53,10 @@ class DirectoryItem extends AbstractModel {
    * @var DirectoryItem
    */
   protected $titleImage;
+
+  public function __construct() {
+    $this->cache = CacheFactory::getCache();
+  }
 
   /**
    * @return array
@@ -166,14 +186,20 @@ class DirectoryItem extends AbstractModel {
    * @return int
    */
   public function getIncludedImages() {
-    return $this->getIncludedItems(FileExtensionUtility::ALLOWED_IMAGES);
+    if (!$this->includedImages) {
+      $this->includedImages = $this->getIncludedItems(FileExtensionUtility::ALLOWED_IMAGES);
+    }
+    return $this->includedImages;
   }
 
   /**
    * @return int
    */
   public function getIncludedVideos() {
-    return $this->getIncludedItems(FileExtensionUtility::ALLOWED_VIDEOS);
+    if (!$this->includedVideos) {
+      $this->includedVideos = $this->getIncludedItems(FileExtensionUtility::ALLOWED_VIDEOS);
+    }
+    return $this->includedVideos;
   }
 
   /**
@@ -181,14 +207,22 @@ class DirectoryItem extends AbstractModel {
    * @return int
    */
   public function getIncludedItems($scope = FileExtensionUtility::ALLOWED_ALL) {
-    $items = $this->mount->getItems($this->getItemPath());
-    $files = $items->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions($scope));
-    $count = $files->count();
-    foreach ($items->getDirectories() as $directory) {
-      /** @var DirectoryItem $directory */
-      $count += $directory->getIncludedItems($scope);
+    if ($scope === FileExtensionUtility::ALLOWED_ALL) {
+      return $this->getIncludedImages() + $this->getIncludedVideos();
     }
-    return $count;
+    return $this->cache->load(
+      'directoryitem_' . $scope . '_' . $this->getItemPath(),
+      function () {
+        $items = $this->mount->getItems($this->getItemPath());
+        $files = $items->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions($scope));
+        $count = $files->count();
+        foreach ($items->getDirectories() as $directory) {
+          /** @var DirectoryItem $directory */
+          $count += $directory->getIncludedItems($scope);
+        }
+        return $count;
+      }
+    );
   }
 
   /**
