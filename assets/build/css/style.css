@@ -21,8 +21,13 @@ nav {
     background-color: transparent; }
     nav li a, nav li strong, nav li.active a, nav li.active strong, nav li:hover a, nav li:hover strong {
       padding: 0 1rem; }
+  nav ul.breadcrumbs li a {
+    display: block;
+    float: left; }
   nav ul.breadcrumbs li:after {
-    content: ">"; }
+    content: ">";
+    display: block;
+    float: left; }
   nav ul.breadcrumbs li:last-child:after {
     content: ""; }
 

@@ -61,7 +61,7 @@ class GalleryController extends AbstractController {
     $currentDirectory = $this->mount->getItems($currentPath);
     $directories = $currentDirectory->getDirectories();
     $items = $currentDirectory->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions());
-    $this->response->set('currentPath', $currentPath === '.' ? 'Home' : $currentPath);
+    $this->response->set('currentPath', $currentPath);
     $this->response->set('directories', $directories);
     $this->response->set('items', $items);
     $this->response->set('gmapsStaticMapsApi', Configuration::getSection('application', 'gmaps_static_maps_api'));
@@ -73,10 +73,6 @@ class GalleryController extends AbstractController {
    */
   protected function getRootlineFromPath($path) {
     $rootline = new DirectoryItemCollection();
-    $rootDirectory = new DirectoryItem();
-    $rootDirectory->setItemPath('/');
-    $rootDirectory->setLabel('Home');
-    $rootline->add($rootDirectory);
     $currentPathSegments = explode('/', trim($path, '/'));
     $lastPath = '';
     foreach ($currentPathSegments as $currentPathSegment) {

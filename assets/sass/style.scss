@@ -28,11 +28,19 @@ nav {
     }
   }
   ul.breadcrumbs {
-    li:after {
-      content: ">";
-    }
-    li:last-child:after {
-      content: "";
+    li {
+      a {
+        display: block;
+        float: left;
+      }
+      &:after {
+        content: ">";
+        display:block;
+        float: left;
+      }
+      &:last-child:after {
+        content: "";
+      }
     }
   }
 }
