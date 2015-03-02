@@ -19,6 +19,16 @@ class DirectoryItem extends AbstractModel {
   protected $fileExtension;
 
   /**
+   * @var int
+   */
+  protected $includedImages;
+
+  /**
+   * @var int
+   */
+  protected $includedVideos;
+
+  /**
    * @var string
    */
   protected $itemPath;
@@ -166,14 +176,20 @@ class DirectoryItem extends AbstractModel {
    * @return int
    */
   public function getIncludedImages() {
-    return $this->getIncludedItems(FileExtensionUtility::ALLOWED_IMAGES);
+    if (!$this->includedImages) {
+      $this->includedImages = $this->getIncludedItems(FileExtensionUtility::ALLOWED_IMAGES);
+    }
+    return $this->includedImages;
   }
 
   /**
    * @return int
    */
   public function getIncludedVideos() {
-    return $this->getIncludedItems(FileExtensionUtility::ALLOWED_VIDEOS);
+    if (!$this->includedVideos) {
+      $this->includedVideos = $this->getIncludedItems(FileExtensionUtility::ALLOWED_VIDEOS);
+    }
+    return $this->includedVideos;
   }
 
   /**
@@ -181,6 +197,9 @@ class DirectoryItem extends AbstractModel {
    * @return int
    */
   public function getIncludedItems($scope = FileExtensionUtility::ALLOWED_ALL) {
+    if ($scope === FileExtensionUtility::ALLOWED_ALL) {
+      return $this->getIncludedImages() + $this->getIncludedVideos();
+    }
     $items = $this->mount->getItems($this->getItemPath());
     $files = $items->getFilesByExtensions(FileExtensionUtility::getAllowedFileExtensions($scope));
     $count = $files->count();
