@@ -38,7 +38,7 @@ class ImagePublisher extends AbstractFilePublisher {
       $height,
     ];
     $hash = $this->hash(serialize($hashIngredients));
-    $targetFilename = $hash . '.' . strtolower($item->getFileExtension());
+    $targetFilename = $hash . '_' . $this->getImageConverterSignature() . '.' . strtolower($item->getFileExtension());
     if (!file_exists($this->publicDirectoryMount->getRootPath() . $targetFilename)) {
       $image = $this->imageConverter->open($item->getAbsolutePath());
       $this->processImage($image, $width, $height);
@@ -81,6 +81,22 @@ class ImagePublisher extends AbstractFilePublisher {
       // proportional scale
       // TODO
     }
+  }
+
+  /**
+   * @return string
+   */
+  protected function getImageConverterSignature() {
+    if ($this->imageConverter instanceof \Imagine\Imagick\Imagine) {
+      return 'im';
+    }
+    if ($this->imageConverter instanceof \Imagine\Gmagick\Imagine) {
+      return 'gm';
+    }
+    if ($this->imageConverter instanceof \Imagine\Gd\Imagine) {
+      return 'gd';
+    }
+    return 'xx';
   }
 
 }
