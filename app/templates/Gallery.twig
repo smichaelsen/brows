@@ -1,15 +1,15 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/libraries.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/libraries.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('build/css/style.css') }} ">
     <script type="text/javascript" src="{{ asset('build/main.js') }}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
 <body>
 <div class="container">
     <nav>
         <div class="nav-wrapper">
-        <a href="{{ base_url }}" class="brand-logo right">photos.michaelsen.io</a>
+            <a href="{{ base_url }}" class="brand-logo right">photos.michaelsen.io</a>
             {% if rootline|length %}
                 <ul class="breadcrumbs left">
                     <li>
@@ -38,29 +38,31 @@
     <div class="row">
         <div class="gallery col s12">
             {% if directories|length %}
-            <div class="row">
-                {% for directory in directories %}
-                    <div class="col s6 m4 l3">
-                        <div class="card">
-                            <div class="card-image activator media-type-folder">
-                                <a href="{{ base_url }}{{ directory.itemPath }}">
-                                    <img src="{{ publicImageUrl(directory.titleImage, 400, 400) }}" alt="{{ directory.titleImage.label }}" title="{{ directory.titleImage.label }}" />
-                                </a>
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title activator grey-text text-darken-4">{{ directory.label }} <i class="mdi-navigation-more-vert right"></i></span>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">{{ directory.label }} <i class="mdi-navigation-close right"></i></span>
-                                <p>
-                                    <i class="mdi-image-photo"></i> {{ directory.includedImages }}<br>
-                                    <i class="mdi-av-videocam"></i> {{ directory.includedVideos }}
-                                </p>
+                <div class="row">
+                    {% for directory in directories %}
+                        <div class="col s6 m4 l3">
+                            <div class="card">
+                                <div class="card-image activator media-type-folder">
+                                    <a href="{{ base_url }}{{ directory.itemPath }}">
+                                        <img src="{{ publicImageUrl(directory.titleImage, 400, 400) }}" alt="{{ directory.titleImage.label }}"
+                                             title="{{ directory.titleImage.label }}"/>
+                                    </a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4">{{ directory.label }} <i class="mdi-navigation-more-vert right"></i></span>
+                                </div>
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4">{{ directory.label }} <i class="mdi-navigation-close right"></i></span>
+
+                                    <p>
+                                        <i class="mdi-image-photo"></i> {{ directory.includedImages }}<br>
+                                        <i class="mdi-av-videocam"></i> {{ directory.includedVideos }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
             {% endif %}
             <div class="row">
                 {% for item in items %}
@@ -74,7 +76,7 @@
                                     </video>
                                 {% else %}
                                     <a href="{{ publicImageUrl(item) }}" class="swipebox" rel="gallery">
-                                        <img src="{{ publicImageUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                                        <img src="{{ publicImageUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}"/>
                                     </a>
                                 {% endif %}
                             </div>
@@ -83,13 +85,15 @@
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">{{ item.label }} <i class="mdi-navigation-close right"></i></span>
+
                                 <div class="row">
                                     {% if item.fileExtension == 'mp4' or item.fileExtension == 'mov' %}
                                     {% else %}
                                         <div class="col s5">
                                             <a href="{{ publicImageUrl(item) }}" class="swipebox" rel="gallery_reveal">
-                                                <img src="{{ publicImageUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}" />
+                                                <img src="{{ publicImageUrl(item, 400, 400) }}" alt="{{ item.label }}" title="{{ item.label }}"/>
                                             </a>
+
                                             <p class="modify-image-actions">
                                                 <i class="mdi-content-undo"></i>
                                                 <i class="mdi-content-redo"></i>
@@ -118,14 +122,14 @@
                                 <div class="row">
                                     <div class="col s12">
                                         {% if item.exifData.GPSLatitudeRef %}
-                                        <img src="http://maps.googleapis.com/maps/api/staticmap?markers=size:mid|color:red|{{ item.exifData.GPSLatitudeDecimal|url_encode }}{{ ','|url_encode }}{{ item.exifData.GPSLongitudeDecimal|url_encode }}&zoom=12&size=400x200&key={{ gmapsStaticMapsApi.key }}" />
+                                            <img src="http://maps.googleapis.com/maps/api/staticmap?markers=size:mid|color:red|{{ item.exifData.GPSLatitudeDecimal|url_encode }}{{ ','|url_encode }}{{ item.exifData.GPSLongitudeDecimal|url_encode }}&zoom=12&size=400x200&key={{ gmapsStaticMapsApi.key }}"/>
                                         {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {%  endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>
