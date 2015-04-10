@@ -9,13 +9,19 @@ use Smichaelsen\Brows\Domain\Model\DirectoryItem;
 class ImagePublisher extends AbstractFilePublisher {
 
   /**
-   * @var \Imagine\Gd\Imagine;
+   * @var \Imagine\Image\AbstractImagine;
    */
   protected $imageConverter;
 
   public function __construct() {
     parent::__construct();
-    $this->imageConverter = new \Imagine\Gd\Imagine();
+    if (class_exists('Imagick')) {
+      $this->imageConverter = new \Imagine\Imagick\Imagine();
+    } elseif (class_exists('Gmagick')) {
+      $this->imageConverter = new \Imagine\Gmagick\Imagine();
+    } else {
+      $this->imageConverter = new \Imagine\Gd\Imagine();
+    }
   }
 
   /**
